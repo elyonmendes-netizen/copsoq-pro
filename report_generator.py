@@ -1,10 +1,10 @@
-import pandas as pd
+import json
 
 def calcular_empresa(df):
     resultados = {}
 
     for _, row in df.iterrows():
-        dados = eval(row["Resultado"])
+        dados = json.loads(row["Resultado"])
 
         for dim, info in dados.items():
             if dim not in resultados:
