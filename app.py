@@ -5,16 +5,22 @@ from questions import questions
 
 st.title("Avaliação Psicossocial - COPSOQ (NR-1)")
 
-# Dados do funcionário
+# ==============================
+# DADOS DO FUNCIONÁRIO
+# ==============================
+
 nome = st.text_input("Código do Funcionário (ou Nome)")
 email = st.text_input("E-mail (opcional)")
 empresa = st.text_input("Empresa")
 
 st.write("Responda o questionário:")
 
+# ==============================
+# PERGUNTAS
+# ==============================
+
 respostas = []
 
-# Perguntas
 for q in questions:
     resp = st.slider(q["text"], 1, 5, 3)
 
@@ -24,7 +30,10 @@ for q in questions:
         "resposta": resp
     })
 
-# Botão enviar
+# ==============================
+# ENVIO
+# ==============================
+
 if st.button("Enviar Respostas"):
 
     if not nome or not empresa:
@@ -40,15 +49,16 @@ if st.button("Enviar Respostas"):
         try:
             url = "https://script.google.com/macros/s/AKfycbxHnnGxmDSWCO1GyI3ilRm1B7XfcLcGBlg-iSSKbJR92zeyT2KCQDcLQgBA45SS5wIo5g/exec"
 
-           response = requests.post(
-    url,
-    json=data
-)
+            response = requests.post(
+                url,
+                json=data
+            )
 
             if response.status_code == 200:
                 st.success("✅ Resposta enviada com sucesso!")
             else:
                 st.error(f"Erro ao enviar. Código: {response.status_code}")
+                st.write(response.text)
 
         except Exception as e:
             st.error(f"Erro de conexão: {e}")
