@@ -40,10 +40,10 @@ if st.button("Enviar Respostas"):
         try:
             url = "https://script.google.com/macros/s/AKfycbxHnnGxmDSWCO1GyI3ilRm1B7XfcLcGBlg-iSSKbJR92zeyT2KCQDcLQgBA45SS5wIo5g/exec"
 
-            response = requests.post(
-                url,
-                data={"data": json.dumps(data)}
-            )
+           response = requests.post(
+    url,
+    json=data
+)
 
             if response.status_code == 200:
                 st.success("✅ Resposta enviada com sucesso!")
