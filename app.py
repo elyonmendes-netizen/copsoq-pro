@@ -47,7 +47,7 @@ if st.button("Enviar Respostas"):
         }
 
         try:
-            url = "https://script.google.com/macros/s/AKfycbxHnnGxmDSWCO1GyI3ilRm1B7XfcLcGBlg-iSSKbJR92zeyT2KCQDcLQgBA45SS5wIo5g/exec"
+            url = "https://script.google.com/macros/s/AKfycbzta9UwAph1mV5yKzSYZ_UDhJ_Ux5QvBxCblCgofJHZ2sIYfGZdiqHdUGhpoZhT19fdkw/exec"
 
             response = requests.post(
                 url,
