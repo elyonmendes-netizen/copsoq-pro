@@ -3,3 +3,6 @@ pandas
 reportlab
 email-validator
 requests
+matplotlib
+gspread
+oauth2client
