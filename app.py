@@ -1,5 +1,6 @@
 import streamlit as st
 import requests
+import json
 from questions import questions
 from scoring import calcular
 
@@ -33,12 +34,7 @@ if st.button("Enviar Respostas"):
     else:
         resultado = calcular(respostas)
 
-        import json
-
-response = requests.post(
-    url,
-    data={"data": json.dumps(data)}
-)
+        data = {
             "nome": nome,
             "email": email,
             "empresa": empresa,
@@ -50,13 +46,13 @@ response = requests.post(
 
             response = requests.post(
                 url,
-                data={"data": str(data)}
+                data={"data": json.dumps(data)}
             )
 
             if response.status_code == 200:
                 st.success("✅ Resposta enviada com sucesso! Obrigado pela participação.")
             else:
-                st.error("Erro ao enviar. Tente novamente.")
+                st.error(f"Erro ao enviar. Código: {response.status_code}")
 
-        except:
-            st.error("Erro de conexão com o servidor.")
+        except Exception as e:
+            st.error(f"Erro de conexão: {e}")
