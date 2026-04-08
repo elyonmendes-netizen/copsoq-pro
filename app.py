@@ -33,7 +33,12 @@ if st.button("Enviar Respostas"):
     else:
         resultado = calcular(respostas)
 
-        data = {
+        import json
+
+response = requests.post(
+    url,
+    data={"data": json.dumps(data)}
+)
             "nome": nome,
             "email": email,
             "empresa": empresa,
