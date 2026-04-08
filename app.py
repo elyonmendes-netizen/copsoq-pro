@@ -45,7 +45,10 @@ if st.button("Enviar Respostas"):
             # 🔗 SEU LINK DO GOOGLE SCRIPT
             url = "https://script.google.com/macros/s/AKfycbw3C4JjqnLpyAlI3IdCCB6e-9KSpH4rKqKHTpsUIPairOFZhrPdV0ZCrfOzjVENslZI3g/exec"
 
-            response = requests.post(url, json=data)
+            response = requests.post(
+    url,
+    data={"data": str(data)}
+)
 
             if response.status_code == 200:
                 st.success("✅ Respostas enviadas com sucesso!")
@@ -56,7 +59,6 @@ if st.button("Enviar Respostas"):
             st.error("Erro de conexão com a planilha.")
 
 # Mostrar resultado na tela também (opcional)
-if st.button("Ver Resultado"):
     resultado = calcular(respostas)
 
     st.subheader("Resultado")
