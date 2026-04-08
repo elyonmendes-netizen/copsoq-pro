@@ -1,3 +1,7 @@
+import pandas as pd
+from report_generator import calcular_empresa
+from charts import gerar_grafico
+from pdf_report import gerar_pdf
 import streamlit as st
 import requests
 import json
@@ -56,3 +60,41 @@ if st.button("Enviar Respostas"):
 
         except Exception as e:
             st.error(f"Erro de conexão: {e}")
+            st.divider()
+st.subheader("📊 Relatório da Empresa (PGR)")
+
+empresa_relatorio = st.text_input("Nome da empresa para o relatório")
+
+if st.button("Gerar Relatório da Empresa"):
+
+    if not empresa_relatorio:
+        st.warning("Informe o nome da empresa")
+    else:
+        try:
+            # 📥 IMPORTANTE:
+            # Aqui você deve usar um CSV exportado da sua planilha Google
+            # Nome da coluna deve ser: Resultado
+
+            df = pd.read_csv("dados_exportados.csv")
+
+            # 🧠 Calcular médias por dimensão
+            resultados = calcular_empresa(df)
+
+            # 📊 Gerar gráfico
+            gerar_grafico(resultados)
+
+            # 📄 Gerar PDF
+            gerar_pdf(resultados, empresa_relatorio)
+
+            # 📥 Download
+            with open("relatorio_pgr.pdf", "rb") as file:
+                st.success("✅ Relatório gerado com sucesso!")
+                st.download_button(
+                    label="📄 Baixar Relatório em PDF",
+                    data=file,
+                    file_name=f"relatorio_{empresa_relatorio}.pdf",
+                    mime="application/pdf"
+                )
+
+        except Exception as e:
+            st.error(f"Erro ao gerar relatório: {e}")
